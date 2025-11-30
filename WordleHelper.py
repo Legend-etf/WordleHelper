@@ -1,9 +1,14 @@
 import itertools
 import tkinter as tk  
+import sys
+import os
 
 initChars = "abcdefghijklmnopqrstuvwxyz" 
-with open(r"WordleHelper\valid-wordle-words.txt", "r") as open_file:
-  words = set(open_file.read().splitlines())
+
+def resourcePath(relativePath):
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relativePath)
+    return os.path.join(os.path.abspath("."), relativePath)
 
 def checkPermutations():
   activeChars = []
@@ -51,6 +56,10 @@ def updateWindow(wordlist, count, combination):
     list.insert(tk.END, w)
   list.grid(row=1, column=2)
   root.update_idletasks()
+
+validWordFile = resourcePath(r"WordleHelper\valid-wordle-words.txt")
+with open(validWordFile, "r") as open_file:
+  words = set(open_file.read().splitlines())
 
 root = tk.Tk()
 root.title("Wordle Helper")
