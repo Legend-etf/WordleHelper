@@ -105,7 +105,6 @@ try:
 except tk.TclError as e:
   e=str(e).capitalize
   print(f"{e} - (The program has likely been closed.)")
-  exit
   
  
   
