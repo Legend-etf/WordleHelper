@@ -27,7 +27,9 @@ jobs:
 
       - name: Build EXE
         run: |
-          pyinstaller --onefile WordleHelper.py
+          pyinstaller --onefile ^
+          --add-data "WordleHelper\valid-wordle-words.txt;." ^
+          -- WordleHelper.py
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
