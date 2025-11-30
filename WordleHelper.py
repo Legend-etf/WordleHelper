@@ -101,11 +101,8 @@ root.grid_rowconfigure(2, weight=1)
 show = root.mainloop()
 try: 
   root.winfo_exists()
-  show()
 except tk.TclError as e:
-  e=str(e).capitalize
+  e=str(e).capitalize()
   print(f"{e} - (The program has likely been closed.)")
-  
- 
-  
-
+else:
+  show()
