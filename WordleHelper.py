@@ -8,7 +8,7 @@ initChars = "abcdefghijklmnopqrstuvwxyz"
 def resourcePath(relativePath):
     base_path = getattr(sys, '_MEIPASS', None)
     if base_path is None:
-        base_path = os.path.dirname(os.path.abspath(__file__))   # script directory
+        base_path = os.path.dirname(os.path.abspath(__file__)) 
     return os.path.join(base_path, relativePath)
 
 def checkPermutations():
