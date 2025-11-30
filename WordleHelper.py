@@ -6,9 +6,10 @@ import os
 initChars = "abcdefghijklmnopqrstuvwxyz" 
 
 def resourcePath(relativePath):
-    if hasattr(sys, '_MEIPASS'):
-        return os.path.join(sys._MEIPASS, relativePath)
-    return os.path.join(os.path.abspath("."), relativePath)
+    base_path = getattr(sys, '_MEIPASS', None)
+    if base_path is None:
+        base_path = os.path.dirname(os.path.abspath(__file__))   # script directory
+    return os.path.join(base_path, relativePath)
 
 def checkPermutations():
   activeChars = []
@@ -57,7 +58,7 @@ def updateWindow(wordlist, count, combination):
   list.grid(row=1, column=2)
   root.update_idletasks()
 
-validWordFile = resourcePath(r"WordleHelper\valid-wordle-words.txt")
+validWordFile = resourcePath(r"valid-wordle-words.txt")
 with open(validWordFile, "r") as open_file:
   words = set(open_file.read().splitlines())
 
