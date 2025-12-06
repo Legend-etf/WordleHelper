@@ -17,8 +17,11 @@ def checkPermutations():
   activeChars = []
   count=0
   combination=0
-  wordlist = []
+  wordList = []
   letters = []
+  localWords = words
+  appendToWordList=wordList.append
+  join = "".join  
 
   list = root.nametowidget('listbox')
   list.delete(0, tk.END)
@@ -30,7 +33,7 @@ def checkPermutations():
     state = root.getvar(varname)
     if int(state):
         activeChars.append(checkb.cget("text").lower())
-  activeChars="".join(activeChars)
+  activeChars=join(activeChars)
   permutations = itertools.product(activeChars, repeat=5)
 
   for i in range(5):
@@ -44,22 +47,21 @@ def checkPermutations():
         and (permutation[2] == l3  or l3 is None)
         and (permutation[3] == l4 or l4 is None)
         and (permutation[4] == l5  or l5 is None)):
-
-      word = "".join(permutation)
-      if word in words:
-        wordlist.append(word)
+      word = join(permutation)
+      if word in localWords:
+        appendToWordList(word)
         count+=1     
       combination+=1
 
   endTime = time.perf_counter()
   timeTaken = endTime - startTime
-  updateWindow(wordlist, count, combination, timeTaken)
+  updateWindow(wordList, count, combination, timeTaken)
 
-def updateWindow(wordlist, count, combination, timeTaken):
+def updateWindow(wordList, count, combination, timeTaken):
   label.config(text=f"Total valid words found: {count}\nTotal combinations checked: {combination}\nTime taken: {timeTaken:.6f} seconds")
   label.grid(row=0, column=2, pady=10)
 
-  for w in wordlist:
+  for w in wordList:
     list.insert(tk.END, w)
   list.grid(row=1, column=2)
 
